@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int incremovableSubarrayCount(vector<int>& a) {
+        int n = a.size(), r = 0;
+        for(int i = 0; i < n; i++) {
+            for(int j = i; j < n; j++) {
+                vector<int> t;
+                for(int k = 0; k < i; k++) t.push_back(a[k]);
+                for(int k = j + 1; k < n; k++) t.push_back(a[k]);
+                
+                bool f = 1;
+                for(int k = 1; k < t.size(); k++) {
+                    if(t[k] <= t[k-1]) {
+                        f = 0;
+                        break;
+                    }
+                }
+                if(f) r++;
+            }
+        }
+        return r;
+    }
+};
