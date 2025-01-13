@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int shoppingOffers(vector<int>& p, vector<vector<int>>& s, vector<int>& n) {
+        function<int(vector<int>&)> f = [&](vector<int>& n) {
+            int r = 0;
+            for (int i = 0; i < p.size(); ++i) r += n[i] * p[i];
+            for (auto& o : s) {
+                vector<int> t = n;
+                int i = 0;
+                for (; i < n.size(); ++i) {
+                    t[i] -= o[i];
+                    if (t[i] < 0) break;
+                }
+                if (i == n.size()) r = min(r, o.back() + f(t));
+            }
+            return r;
+        };
+        return f(n);
+    }
+};
