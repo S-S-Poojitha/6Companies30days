@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isValidSerialization(string preorder) {
+        int s = 1;
+        for (int i = 0; i < preorder.size(); ++i) {
+            if (preorder[i] == ',') {
+                continue;
+            }
+            if (--s < 0) {
+                return false;
+            }
+            if (preorder[i] != '#') {
+                 while (i < preorder.size() && preorder[i] != ',') {
+                    ++i;
+                    }
+                s += 2;
+            }
+    }
+        return s == 0;     
+}
+};
