@@ -1,0 +1,23 @@
+class Solution {
+    vector<vector<int>> r;
+    vector<int> s;
+    int t = 0;
+public:
+    Solution(vector<vector<int>>& rects) : r(rects) {
+        for (auto& x : r) {
+            t += (x[2] - x[0] + 1) * (x[3] - x[1] + 1);
+            s.push_back(t);
+        }
+    }
+
+    vector<int> pick() {
+        int p = rand() % t;
+        int i = lower_bound(s.begin(), s.end(), p + 1) - s.begin();
+        auto& x = r[i];
+        int w = x[2] - x[0] + 1;
+        int h = x[3] - x[1] + 1;
+        int base = i > 0 ? s[i - 1] : 0;
+        int offset = p - base;
+        return {x[0] + offset % w, x[1] + offset / w};
+    }
+};
